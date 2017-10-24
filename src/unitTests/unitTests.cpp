@@ -10,11 +10,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include <experimental/string_view>
-
 using namespace ::testing;
-using namespace std::experimental;
-using namespace std::string_literals;
 ////////////////////////////////////////////////////////////////////////////////
 // a simple function's performance timer
 template <typename Time = std::chrono::nanoseconds,

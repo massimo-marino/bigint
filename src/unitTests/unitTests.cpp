@@ -176,13 +176,10 @@ TEST(bigint, fibonacci)
   int32_t n {};
   fib_n_1 = 1;
   fib_n_2 = 0;
-  //std::cout << 0 << " " << fib_n_2 << '\n';
-  //std::cout << 1 << " " << fib_n_1 << '\n';
 
   for (n = 2; n <= 1'001; ++n)
   {
     fib_n = fib_n_1 + fib_n_2;
-    //std::cout << n << " " << fib_n << '\n';
     fib_n_2 = fib_n_1;
     fib_n_1 = fib_n;
   }

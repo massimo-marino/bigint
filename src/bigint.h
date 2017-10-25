@@ -3,12 +3,8 @@
 // This implementation is a 'fork' from:
 // https://sites.google.com/site/indy256/algo_cpp/bigint
 //
-#include <iostream>
 #include <iomanip>
 #include <vector>
-#include <tuple>
-#include <cstdlib>
-#include <string>
 ////////////////////////////////////////////////////////////////////////////////
 namespace bigint
 {
@@ -494,3 +490,9 @@ size_t numberOfDigits(const bigint::bigint& v) noexcept;
 
 std::istream& operator>>(std::istream& os, bigint::bigint& v);
 std::ostream& operator<<(std::ostream& os, const bigint::bigint& v);
+
+template <>
+struct std::is_integral<bigint::bigint>
+{
+  static const bool value = true;
+};

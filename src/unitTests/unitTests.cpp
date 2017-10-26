@@ -37,6 +37,8 @@ struct perftimer
 ////////////////////////////////////////////////////////////////////////////////
 TEST(bigint, test_1)
 {
+  bigint::bigint z {};
+  ASSERT_EQ(bigint::bigint("0"), z);
   bigint::bigint a("100000000000000000000000000000000000000000000000000000000000000000");
   bigint::bigint b("100000000000000000000000000000000000000000000000000000000000000000");
   ASSERT_TRUE(bigint::bigint("200000000000000000000000000000000000000000000000000000000000000000") == (a + b));
@@ -171,7 +173,7 @@ TEST(bigint, test_7)
 TEST(bigint, test_8)
 {
   const int64_t maxN {99'999'999};
-  
+
   for (int64_t i = 1; i <= maxN; ++i)
   {
     int64_t is = i * (i + 1) / 2;
@@ -198,6 +200,78 @@ TEST(bigint, fibonacci)
   }
   ASSERT_EQ(n, 1'002);
   ASSERT_EQ(bigint::bigint("70330367711422815821835254877183549770181269836358732742604905087154537118196933579742249494562611733487750449241765991088186363265450223647106012053374121273867339111198139373125598767690091902245245323403501"), fib_n_1);
+}
+
+TEST(bigint, test_9)
+{
+  std::string sa {};
+  std::string sb {};
+  for(int32_t i = 1; i <= 2'000'000; ++i)
+  {
+    sa += std::to_string(i % 9);
+    sb += std::to_string((i + 1) % 9);
+  }
+  bigint::bigint a {sa};
+  bigint::bigint b {sb};
+  bigint::bigint result {};
+  auto fun = [&a, &b, &result]()
+  {
+    result = a * b;
+  };
+  auto funTime = perftimer<std::chrono::nanoseconds>::duration(fun).count() * (1.0 / 1'000'000.0);
+  std::cout << funTime
+            << " msec"
+            << '\n';
+  EXPECT_LT(funTime, 2600.0);
+}
+
+TEST(bigint, test_10)
+{
+  std::string sa {};
+  std::string sb {};
+  for(int32_t i = 1; i <= 100'000'000; ++i)
+  {
+    sa += std::to_string(i % 9);
+  }
+  sb = sa;
+  bigint::bigint a {sa};
+  bigint::bigint b {sb};
+  bigint::bigint result {1};
+  auto fun = [&a, &b, &result]()
+  {
+    result = a - b;
+  };
+  auto funTime = perftimer<std::chrono::nanoseconds>::duration(fun).count() * (1.0 / 1'000'000.0);
+  std::cout << funTime
+            << " msec"
+            << std::endl;
+  EXPECT_LT(funTime, 60.0);
+  ASSERT_EQ(bigint::bigint("0"), result);
+}
+
+TEST(bigint, test_11)
+{
+  std::string sa {};
+  std::string sb {};
+  for(int32_t i = 1; i <= 2'000'000; ++i)
+  {
+    sa += std::to_string(i % 9);
+  }
+  sb = sa;
+  bigint::bigint a {sa};
+  bigint::bigint b {sb};
+  bigint::bigint result {1};
+  auto fun = [&a, &b, &result]()
+  {
+    result = a + b;
+  };
+  auto funTime = perftimer<std::chrono::nanoseconds>::duration(fun).count() * (1.0 / 1'000'000.0);
+  std::cout << funTime
+            << " msec"
+            << std::endl;
+  EXPECT_LT(funTime, 1.0);
+  ASSERT_EQ(bigint::bigint("2") * a, result);
+  ASSERT_EQ(bigint::bigint("2") * b, result);
 }
 ////////////////////////////////////////////////////////////////////////////////
 #pragma clang diagnostic pop

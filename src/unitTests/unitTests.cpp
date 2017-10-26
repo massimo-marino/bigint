@@ -168,6 +168,19 @@ TEST(bigint, test_7)
   }
 }
 
+TEST(bigint, test_8)
+{
+  const int64_t maxN {99'999'999};
+  
+  for (int64_t i = 1; i <= maxN; ++i)
+  {
+    int64_t is = i * (i + 1) / 2;
+    bigint::bigint isbi(is);
+    bigint::bigint bis {i * (i + 1) / 2};
+    ASSERT_TRUE(isbi == bis);
+  }
+}
+
 TEST(bigint, fibonacci)
 {
   bigint::bigint fib_n;

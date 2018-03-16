@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-PROJECT( bigint-unit-tests )
+PROJECT( bigint-fibonacci )
 
 ################################################################################
 #### settings for clang 5.0
@@ -172,8 +172,14 @@ MESSAGE( STATUS )
 
 # ------------------------- End of Generic CMake Variable Logging ------------------
 
-SET( sources_list unitTests.cpp )
+SET( sources_list fibonacci.cpp cfile_helper.cpp)
+SET( target fibonacci )
 
-ADD_EXECUTABLE( unitTests ${sources_list} )
+ADD_EXECUTABLE( ${target} ${sources_list} )
 
-TARGET_LINK_LIBRARIES (unitTests LINK_PUBLIC bigint)
+FIND_PACKAGE(Boost REQUIRED COMPONENTS program_options filesystem system)
+
+IF(Boost_FOUND)
+    INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIRS} )
+    TARGET_LINK_LIBRARIES( ${target} LINK_PUBLIC bigint ${Boost_LIBRARIES} )
+ENDIF()

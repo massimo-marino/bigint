@@ -3,8 +3,7 @@
 // This implementation is a 'fork' from:
 // https://sites.google.com/site/indy256/algo_cpp/bigint
 //
-#ifndef BIGINT_H
-#define BIGINT_H
+#pragma once
 
 #include <iomanip>
 #include <vector>
@@ -541,6 +540,15 @@ class bigint final
 };  // class bigint
 
 size_t numberOfDigits(const bigint& v) noexcept;
+
+// create an object of type bigint and return a std::unique_ptr to it
+template <typename... Args>
+auto
+createUniquePtr(Args&&... args) -> std::unique_ptr<bigint>
+{
+  return std::make_unique<bigint>(args...);
+}
+
 }  // namespace bigint
 
 std::istream& operator>>(std::istream& os, bigint::bigint& v);
@@ -551,5 +559,3 @@ struct std::is_integral<bigint::bigint>
 {
   static inline const bool value = true;
 };
-
-#endif  // BIGINT_H

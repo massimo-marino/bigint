@@ -6,13 +6,13 @@
 #include "bigint.h"
 ////////////////////////////////////////////////////////////////////////////////
 std::istream& operator>>(std::istream& os, bigint::bigint& v)
-  {
-    std::string s {};
-    os >> s;
-    v.read(s);
+{
+  std::string s {};
+  os >> s;
+  v.read(s);
 
-    return os;
-  }
+  return os;
+}
 
 std::ostream& operator<<(std::ostream& os, const bigint::bigint& v)
 {

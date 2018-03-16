@@ -124,7 +124,7 @@ main(const int argc, const char** argv)
 
   bigint::bigint fN;
 
-  fN = fib();
+  fN = upfib();
   std::string fileName {"fib-" + std::to_string(N) + ".txt"};
   utilities::cfile_helper::cfile_helper fs = utilities::cfile_helper::cfile_helper(fileName,
                                                utilities::cfile_helper::cfile_helper::fstream_direction::fs_OUTPUT);

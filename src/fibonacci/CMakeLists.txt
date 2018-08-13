@@ -5,10 +5,11 @@ PROJECT( bigint-fibonacci )
 ################################################################################
 #### settings for clang 5.0
 SET (CMAKE_CXX_COMPILER "/clang_5.0.0/bin/clang++-5.0")
+SET (CMAKE_INCLUDE_PATH "-I. -I/clang_5.0.0/include/c++/v1" )
 #SET (CMAKE_CXX_STANDARD 17)
-SET (CLANG_CXX_FLAGS "-std=c++17 -Ofast -ffast-math -pthread -pedantic -pedantic-errors -Wall -Weffc++ -Wextra -Wfatal-errors -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -fno-assume-sane-operator-new")
+SET (CLANG_CXX_FLAGS "-I. -I.. -std=c++17 -Ofast -pthread -pedantic -pedantic-errors -Wall -Weffc++ -Wextra -Wfatal-errors -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -fno-assume-sane-operator-new")
 ####SET (CLANG_CXX_FLAGS "${CLANG_CXX_FLAGS} -fsanitize=undefined")
-SET (CMAKE_CXX_FLAGS "${CLANG_CXX_FLAGS} -mtune=native -march=native -m64 -lm -lpthread -lc++experimental -lrt -ldl -lgtest_dll -lgtest_main")
+SET (CMAKE_CXX_FLAGS "${CLANG_CXX_FLAGS} -mtune=native -march=native -m64 -lm -lpthread -lc++experimental -lrt -ldl")
 ### use libstdc++
 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++")
 ### use libc++
@@ -172,7 +173,7 @@ MESSAGE( STATUS )
 
 # ------------------------- End of Generic CMake Variable Logging ------------------
 
-SET( sources_list fibonacci.cpp cfile_helper.cpp)
+SET( sources_list fibonacci.cpp fibonacci.h cfile_helper.cpp cfile_helper.h ../bigint.cpp ../bigint.h )
 SET( target fibonacci )
 
 ADD_EXECUTABLE( ${target} ${sources_list} )

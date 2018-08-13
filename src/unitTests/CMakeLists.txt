@@ -8,8 +8,9 @@ SET (CMAKE_CXX_COMPILER "/clang_5.0.0/bin/clang++-5.0")
 #SET (CMAKE_CXX_STANDARD 17)
 SET (CLANG_CXX_FLAGS "-std=c++17 -Ofast -ffast-math -pthread -pedantic -pedantic-errors -Wall -Weffc++ -Wextra -Wfatal-errors -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -fno-assume-sane-operator-new")
 ####SET (CLANG_CXX_FLAGS "${CLANG_CXX_FLAGS} -fsanitize=undefined")
-SET (CMAKE_CXX_FLAGS "${CLANG_CXX_FLAGS} -mtune=native -march=native -m64 -lm -lpthread -lc++experimental -lrt -ldl -lgtest_dll -lgtest_main")
-### use libstdc++
+SET (GOOGLETEST_LIBS "-lgtest_dll -lgtest_main")
+SET (CMAKE_CXX_FLAGS "${CLANG_CXX_FLAGS} -mtune=native -march=native -m64 -lm -lrt ${GOOGLETEST_LIBS}")
+### Googletest code must use libstdc++
 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++")
 ### use libc++
 #SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
@@ -172,8 +173,6 @@ MESSAGE( STATUS )
 
 # ------------------------- End of Generic CMake Variable Logging ------------------
 
-SET( sources_list unitTests.cpp )
+SET( sources_list unitTests.cpp ../bigint.cpp ../bigint.h )
 
 ADD_EXECUTABLE( unitTests ${sources_list} )
-
-TARGET_LINK_LIBRARIES (unitTests LINK_PUBLIC bigint)

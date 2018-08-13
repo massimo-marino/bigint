@@ -4,10 +4,6 @@
  * 
  * Created on November 3, 2016, 11:52 AM
  */
-
-#include <string>
-#include <iostream>
-
 #include "cfile_helper.h"
 ////////////////////////////////////////////////////////////////////////////////
 namespace utilities::cfile_helper

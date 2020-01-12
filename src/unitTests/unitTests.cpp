@@ -121,12 +121,14 @@ TEST(bigint, test_6)
 {
   bigint::bigint c {};
 
-  for(int i = 1; i <= 2'000'000; ++i)
+  for (int i {1}; i <= 2'000'000; ++i)
   {
     bigint::bigint a {"9782787878638754910809747756469127987319837918612987319811298361928"};
     bigint::bigint b {"9991839289197398134501938746372911008273863561216526156219903838393"};
     c = a * b;
     ASSERT_EQ(a * b,
+              bigint::bigint("97748044283666779233341997400581063693895238139796658084782362620593578372143918935600287680752213307748175835572108551004920535901704"));
+    ASSERT_EQ(c,
               bigint::bigint("97748044283666779233341997400581063693895238139796658084782362620593578372143918935600287680752213307748175835572108551004920535901704"));
   }
   std::cout << c << " of size " << bigint::numberOfDigits(c) << '\n';
@@ -174,7 +176,7 @@ TEST(bigint, test_8)
 {
   const int64_t maxN {99'999'999};
 
-  for (int64_t i = 1; i <= maxN; ++i)
+  for (int64_t i {1}; i <= maxN; ++i)
   {
     int64_t is = i * (i + 1) / 2;
     bigint::bigint isbi(is);
@@ -199,17 +201,21 @@ TEST(bigint, fibonacci)
     fib_n_1 = fib_n;
   }
   ASSERT_EQ(n, 1'002);
-  ASSERT_EQ(bigint::bigint("70330367711422815821835254877183549770181269836358732742604905087154537118196933579742249494562611733487750449241765991088186363265450223647106012053374121273867339111198139373125598767690091902245245323403501"), fib_n_1);
+  ASSERT_EQ(bigint::bigint("70330367711422815821835254877183549770181269836358732742604905087154537118196933579742249494562611733487750449241765991088186363265450223647106012053374121273867339111198139373125598767690091902245245323403501"),
+             fib_n_1);
 }
 
 TEST(bigint, test_9)
 {
+  const size_t SIZE {2'000'000};
   std::string sa {};
   std::string sb {};
-  for(int32_t i = 1; i <= 2'000'000; ++i)
+  sa.reserve(SIZE);
+  sb.reserve(SIZE);
+  for(int32_t i {1}; i <= SIZE;)
   {
-    sa += std::to_string(i % 9);
-    sb += std::to_string((i + 1) % 9);
+    sa += std::to_string(i % 10);
+    sb += std::to_string((++i) % 10);
   }
   bigint::bigint a {sa};
   bigint::bigint b {sb};
@@ -218,20 +224,31 @@ TEST(bigint, test_9)
   {
     result = a * b;
   };
+
   auto funTime = perftimer<std::chrono::nanoseconds>::duration(fun).count() * (1.0 / 1'000'000.0);
-  std::cout << funTime
+  size_t sizeOfA {bigint::numberOfDigits(a)};
+  size_t sizeOfB {bigint::numberOfDigits(b)};
+  size_t sizeOfResult {bigint::numberOfDigits(result)};
+  std::cout << "a length:      " << sizeOfA << std::endl;
+  std::cout << "b length:      " << sizeOfB << std::endl;
+  std::cout << "result length: " << sizeOfResult << std::endl;
+  ASSERT_EQ(sizeOfA + sizeOfB - 1, sizeOfResult);
+  std::cout << "result = a * b took "
+            << funTime
             << " msec"
             << '\n';
-  EXPECT_LT(funTime, 2700.0);
 }
 
 TEST(bigint, test_10)
 {
+  const size_t SIZE {2'000'000};
   std::string sa {};
   std::string sb {};
-  for(int32_t i = 1; i <= 100'000'000; ++i)
+  sa.reserve(SIZE);
+  sb.reserve(SIZE);
+  for(int32_t i {1}; i <= SIZE; ++i)
   {
-    sa += std::to_string(i % 9);
+    sa += std::to_string(i % 10);
   }
   sb = sa;
   bigint::bigint a {sa};
@@ -243,19 +260,31 @@ TEST(bigint, test_10)
     result = a - b;
     ASSERT_EQ(zero, result);
   };
+
   auto funTime = perftimer<std::chrono::nanoseconds>::duration(fun).count() * (1.0 / 1'000'000.0);
-  std::cout << funTime
+  size_t sizeOfA {bigint::numberOfDigits(a)};
+  size_t sizeOfB {bigint::numberOfDigits(b)};
+  size_t sizeOfResult {bigint::numberOfDigits(result)};
+  std::cout << "a length:      " << sizeOfA << std::endl;
+  std::cout << "b length:      " << sizeOfB << std::endl;
+  std::cout << "result length: " << sizeOfResult << std::endl;
+  ASSERT_EQ(1, sizeOfResult);
+  std::cout << "result = a - b took "
+            << funTime
             << " msec"
             << std::endl;
 }
 
 TEST(bigint, test_11)
 {
+  const size_t SIZE {2'000'000};
   std::string sa {};
   std::string sb {};
-  for(int32_t i = 1; i <= 2'000'000; ++i)
+  sa.reserve(SIZE);
+  sb.reserve(SIZE);
+  for(int32_t i {1}; i <= SIZE; ++i)
   {
-    sa += std::to_string(i % 9);
+    sa += std::to_string(i % 10);
   }
   sb = sa;
   bigint::bigint a {sa};
@@ -268,10 +297,54 @@ TEST(bigint, test_11)
     ASSERT_EQ(two * a, result);
     ASSERT_EQ(two * b, result);
   };
+
   auto funTime = perftimer<std::chrono::nanoseconds>::duration(fun).count() * (1.0 / 1'000'000.0);
-  std::cout << funTime
+  size_t sizeOfA {bigint::numberOfDigits(a)};
+  size_t sizeOfB {bigint::numberOfDigits(b)};
+  size_t sizeOfResult {bigint::numberOfDigits(result)};
+  std::cout << "a length:      " << sizeOfA << std::endl;
+  std::cout << "b length:      " << sizeOfB << std::endl;
+  std::cout << "result length: " << sizeOfResult << std::endl;
+  ASSERT_EQ(sizeOfA, sizeOfResult);
+  ASSERT_EQ(sizeOfB, sizeOfResult);
+  std::cout << "result = a + b took "
+            << funTime
             << " msec"
             << std::endl;
+}
+
+TEST(bigint, test_12)
+{
+  const size_t SIZE {2'000'000};
+  std::string sa {};
+  std::string sb {};
+  sa.reserve(SIZE);
+  sb.reserve(SIZE);
+  for(int32_t i {1}; i <= SIZE;)
+  {
+    sa += std::to_string(i % 10);
+    sb += std::to_string((++i) % 10);
+  }
+  bigint::bigint a {sa};
+  bigint::bigint b {sb};
+  bigint::bigint result {};
+  auto fun = [&a, &b, &result]()
+  {
+    result = a / b;
+  };
+
+  auto funTime = perftimer<std::chrono::nanoseconds>::duration(fun).count() * (1.0 / 1'000'000.0);
+  size_t sizeOfA {bigint::numberOfDigits(a)};
+  size_t sizeOfB {bigint::numberOfDigits(b)};
+  size_t sizeOfResult {bigint::numberOfDigits(result)};
+  std::cout << "a length:      " << sizeOfA << std::endl;
+  std::cout << "b length:      " << sizeOfB << std::endl;
+  std::cout << "result length: " << sizeOfResult << std::endl;
+  ASSERT_EQ(1, sizeOfResult);
+  std::cout << "result = a / b took "
+            << funTime
+            << " msec"
+            << '\n';
 }
 ////////////////////////////////////////////////////////////////////////////////
 #pragma clang diagnostic pop

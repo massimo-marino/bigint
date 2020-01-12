@@ -123,7 +123,7 @@ main(const int argc, const char** argv)
 
   desc.add_options()
           ("n,n",    po::value<ui64>()->implicit_value(1)->default_value(1), "the fib number we want to compute")
-          ("test,t", po::value<bool>()->implicit_value(true)->default_value(false), "test fib algorithms")
+          ("test,t", po::value<bool>()->implicit_value(true)->default_value(false), "test fib algorithms; no result is printed or saved on file")
           ("help,h",   "Print this help message")
           ;
 
@@ -322,6 +322,11 @@ main(const int argc, const char** argv)
 //          std::cout << n << ": " << "EQUAL" << std::endl;
 //        }
       }
+      std::cout << "[" << __func__ << "] "
+                << "fib("
+                << N
+                << ") was computed correctly"
+                << std::endl;
     }
   }
   return 0;

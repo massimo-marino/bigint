@@ -26,7 +26,7 @@ class bigint final
   vi n_ {};
 
   // for padding: unused
-  [[maybe_unused]] const char dummy_[4] {};
+  [[maybe_unused]] char dummy_[4] {};
 
   int32_t sign_ {1};
 

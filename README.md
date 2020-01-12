@@ -11,7 +11,7 @@ https://sites.google.com/site/indy256/algo_cpp/bigint
 
 `cmake` is used to compile the sources.
 
-The default compiler used is `clang++-5.0`.
+The default compiler used is `clang++-9.0`.
 
 The cmake files compile with `-std=c++17`.
 

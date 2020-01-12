@@ -21,6 +21,7 @@ constexpr
 bool
 isOdd(const T& n) noexcept
 {
+  static_assert(std::is_integral<T>::value, "Integral required.");
   return (static_cast<T>(1) == (n & static_cast<T>(1)));
 }
 
@@ -29,5 +30,6 @@ constexpr
 bool
 isEven(const T& n) noexcept
 {
+  static_assert(std::is_integral<T>::value, "Integral required.");
   return (static_cast<T>(0) == (n & static_cast<T>(1)));
 }

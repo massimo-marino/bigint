@@ -19,6 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
+#include <iostream>
 #include <sstream>
 #include <iomanip>
 #include <vector>
@@ -540,3 +541,14 @@ struct std::is_integral<bigint::bigint>
 {
   static inline const bool value = true;
 };
+template <>
+struct std::is_arithmetic<bigint::bigint>
+{
+  static inline const bool value = true;
+};
+template <>
+struct std::is_scalar<bigint::bigint>
+{
+  static inline const bool value = true;
+};
+

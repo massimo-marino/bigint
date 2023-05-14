@@ -1,7 +1,5 @@
 // bigint.cpp
 //
-// This implementation is a 'fork' from:
-// https://sites.google.com/site/indy256/algo_cpp/bigint
 //
 #include "bigint.h"
 ////////////////////////////////////////////////////////////////////////////////

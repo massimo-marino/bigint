@@ -20,11 +20,10 @@ struct perftimer
   template <typename F, typename... Args>
   static inline Time duration(F&& f, Args&&... args)
   {
-    auto start = Clock::now();
-    // C++17: not yet available
-    //std::invoke(std::forward<F>(f), std::forward<Args>(args)...);
-    f(std::forward<Args>(args)...);
-    auto end = Clock::now();
+    auto start {Clock::now()};
+    std::invoke(std::forward<F>(f), std::forward<Args>(args)...);  // from C++17
+    //f(std::forward<Args>(args)...);  // until C++17
+    auto end {Clock::now()};
 
     return std::chrono::duration_cast<Time>(end - start);
   }

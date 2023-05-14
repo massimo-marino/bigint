@@ -303,24 +303,28 @@ main(const int argc, const char** argv)
             std::cout << n << ": " << "LENGTHS DIFFER" << std::endl;
           }
           exit(2);
-
-//          for (size_t i{0}; i < olds.str().size(); ++i)
-//          {
-//            if (olds.str()[i] != news.str()[i]) {
-//              std::cout << "differ at index "
-//                        << i
-//                        << " -> '"
-//                        << static_cast<char>(olds.str()[i])
-//                        << "' - '"
-//                        << static_cast<char>(news.str()[i])
-//                        << "'"
-//                        << std::endl;
-//            }
+/*
+          for (size_t i{0}; i < olds.str().size(); ++i)
+          {
+            if (olds.str()[i] != news.str()[i]) {
+              std::cout << "differ at index "
+                        << i
+                        << " -> '"
+                        << static_cast<char>(olds.str()[i])
+                        << "' - '"
+                        << static_cast<char>(news.str()[i])
+                        << "'"
+                        << std::endl;
+            }
+          }
+*/
         }
-//        else
-//        {
-//          std::cout << n << ": " << "EQUAL" << std::endl;
-//        }
+/*
+        else
+        {
+          std::cout << n << ": " << "EQUAL" << std::endl;
+        }
+*/
       }
       std::cout << "[" << __func__ << "] "
                 << "fib("

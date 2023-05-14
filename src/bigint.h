@@ -1,8 +1,22 @@
 // bigint.h
 //
-// This implementation is a 'fork' from:
+// This implementation is a re-implementation from:
 // https://sites.google.com/site/indy256/algo_cpp/bigint
+// However, this site is no more reachable.
 //
+// You can get back past snapshots from Internet Archive:
+// https://web.archive.org/web/20210301000000*/https://sites.google.com/site/indy256/algo_cpp/bigint
+//
+// March 19 2021
+// https://web.archive.org/web/20210319023614/https://sites.google.com/site/indy256/algo_cpp/bigint
+//
+// October 24 2011
+// https://web.archive.org/web/20111024050800/https://sites.google.com/site/indy256/algo_cpp/bigint
+//
+// February 8 2011
+// https://web.archive.org/web/20110208155854/https://sites.google.com/site/indy256/algo_cpp/bigint
+//
+////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
 #include <sstream>
@@ -26,7 +40,7 @@ class bigint final
   vi n_ {};
 
   // for padding: unused
-  [[maybe_unused]] char dummy_[4] {};
+  char dummy_[4] {};
 
   int32_t sign_ {1};
 

@@ -64,14 +64,14 @@ cfile_helper::get_file_name () const noexcept
   return m_file_name;
 }
 
-inline
+constexpr
 void
 cfile_helper::set_fstream_direction (const fstream_direction& fs_direction) const noexcept
 {
   m_fs_direction = fs_direction;
 }
 
-inline constexpr
+constexpr
 cfile_helper::fstream_direction
 cfile_helper::get_fstream_direction () const noexcept
 {
@@ -115,6 +115,7 @@ cfile_helper::open_output_file (const std::string& file_name) const noexcept(fal
   return get_fstream();
 }
 
+inline
 void
 cfile_helper::set_fstream(const std::string& file_name, const std::ios_base::openmode& mode) const noexcept(false)
 {
@@ -134,7 +135,7 @@ cfile_helper::close_file () const
   close_fstream();
 }
 
-inline constexpr
+inline
 void
 cfile_helper::close_fstream () const
 {
@@ -142,41 +143,42 @@ cfile_helper::close_fstream () const
   set_file_is_closed();
 }
 
-inline
+constexpr
 void
 cfile_helper::set_file_is_open () const noexcept
 {
   m_file_is_open = true;
 }
 
-inline
+constexpr
 void
 cfile_helper::set_file_is_closed () const noexcept
 {
   m_file_is_open = false;
 }
 
+constexpr
 bool
 cfile_helper::is_file_open () const noexcept
 {
   return (true == m_file_is_open);
 }
 
-inline constexpr
+constexpr
 bool
 cfile_helper::is_file_closed () const noexcept
 {
   return (false == m_file_is_open);
 }
 
-inline constexpr
+inline
 bool
 cfile_helper::is_eof_reached () const noexcept
 {
   return ( true == get_fstream().eof());
 }
 
-inline constexpr
+inline
 bool
 cfile_helper::is_eof_not_reached () const noexcept
 {

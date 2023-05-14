@@ -25,19 +25,19 @@ class cfile_helper final
                          const fstream_direction& fs_direction = fstream_direction::fs_NOT_DEFINED) noexcept(false);
   ~cfile_helper ();
 
-  bool is_file_open () const noexcept;
-  inline constexpr bool is_file_closed () const noexcept;
-  inline constexpr bool is_eof_reached () const noexcept;
-  inline constexpr bool is_eof_not_reached () const noexcept;
+  constexpr bool is_file_open () const noexcept;
+  constexpr bool is_file_closed () const noexcept;
+  inline bool is_eof_reached () const noexcept;
+  inline bool is_eof_not_reached () const noexcept;
 
   std::fstream& get_fstream () const noexcept;
-  void set_fstream(const std::string& file_name, const std::ios_base::openmode& mode) const noexcept(false);
+  inline void set_fstream(const std::string& file_name, const std::ios_base::openmode& mode) const noexcept(false);
   // open file for input
   std::fstream& open_input_file (const std::string& file_name) const noexcept(false);
   // open file for output
   std::fstream& open_output_file (const std::string& file_name) const noexcept(false);
 
-  void close_file() const;
+  inline void close_file() const;
 
   // get the file size
   std::streamoff file_size() const;
@@ -55,15 +55,15 @@ class cfile_helper final
 
   void open_file () const noexcept(false);
   std::fstream& open_file (const std::ios_base::openmode& mode) const noexcept(false);
-  inline constexpr void close_fstream () const;
+  inline void close_fstream () const;
   // set the file as open; set m_file_is_open
-  inline void set_file_is_open () const noexcept;
+  constexpr void set_file_is_open () const noexcept;
   // set the file as closed; set m_file_is_open
-  inline void set_file_is_closed () const noexcept;
+  constexpr void set_file_is_closed () const noexcept;
   inline void set_file_name (const std::string& file_name) const noexcept;
   inline std::string get_file_name() const noexcept;
-  inline void set_fstream_direction (const fstream_direction& fs_direction) const noexcept;
-  inline constexpr fstream_direction get_fstream_direction () const noexcept;
+  constexpr void set_fstream_direction (const fstream_direction& fs_direction) const noexcept;
+  constexpr fstream_direction get_fstream_direction () const noexcept;
 };  // class cfile_helper
 }  // namespace utilities::cfile_helper
 ////////////////////////////////////////////////////////////////////////////////

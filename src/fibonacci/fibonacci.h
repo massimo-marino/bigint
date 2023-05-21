@@ -9,12 +9,9 @@
 #include "cfile_helper.h"
 #include "../bigint.h"
 ////////////////////////////////////////////////////////////////////////////////
-using ui64 = uint_fast64_t;
-using i32 = int32_t;
-using i64 = int64_t;
 
-static std::pair<bigint::bigint, bigint::bigint> fast_fib_even(ui64 n);
-static std::pair<bigint::bigint, bigint::bigint> fast_fib(ui64 n);
+static std::pair<bigint::bigint, bigint::bigint> fast_fib_even(uint_fast64_t n);
+static std::pair<bigint::bigint, bigint::bigint> fast_fib(uint_fast64_t n);
 
 template <typename T>
 constexpr

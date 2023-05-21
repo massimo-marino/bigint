@@ -22,11 +22,21 @@ SET(SOURCE_FILES
    bigint.cpp
 )
 
-SET(CMAKE_BUILD_TYPE Release) # Debug, Release, RelWithDebInfo, MinSizeRel
+#SET(CMAKE_BUILD_TYPE Debug) # Debug, Release, RelWithDebInfo, MinSizeRel
+
+# Set the build type (Debug or Release)
+if(NOT CMAKE_BUILD_TYPE)
+  SET(CMAKE_BUILD_TYPE Release)
+endif()
 
 # Set more compiler flags for debug mode; -g is automatically set
 if(CMAKE_BUILD_TYPE MATCHES Debug)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+endif()
+
+# Set more compiler flags for release mode; -O3 is automatically set
+if(CMAKE_BUILD_TYPE MATCHES Release)
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ")
 endif()
 
 #ADD_LIBRARY(${LIBRARY_NAME} STATIC ${SOURCE_FILES})
@@ -37,3 +47,4 @@ SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES SOVERSION 1)
 SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES PUBLIC_HEADER bigint.h)
 
 TARGET_INCLUDE_DIRECTORIES(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+

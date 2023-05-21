@@ -1,9 +1,9 @@
 #
-SET(THE_PROJECT bigint-unit-tests)
+SET(THE_PROJECT fibmemo)
 
 cmake_minimum_required(VERSION 3.26)
 
-PROJECT(${THE_PROJECT} VERSION 1.0.0 DESCRIPTION "unit tests for bigint")
+PROJECT(${THE_PROJECT} VERSION 1.0.0 DESCRIPTION "fibonacci with memoization example with bigint's")
 
 # C++ version
 SET(CMAKE_CXX_STANDARD 17)
@@ -13,7 +13,7 @@ SET(CMAKE_CXX_EXTENSIONS OFF)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
-#SET(CMAKE_BUILD_TYPE Release) # Debug, Release, RelWithDebInfo, MinSizeRel
+#SET(CMAKE_BUILD_TYPE Debug) # Debug, Release, RelWithDebInfo, MinSizeRel
 
 # Set the build type (Debug or Release)
 if(NOT CMAKE_BUILD_TYPE)
@@ -30,27 +30,21 @@ if(CMAKE_BUILD_TYPE MATCHES Release)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ")
 endif()
 
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-
-find_package(GMock REQUIRED)
-include_directories(${GMOCK_INCLUDE_DIRS})
-
-SET(SOURCES_TO_BE_TESTED
-    ../bigint.cpp
-)
-SET(UNIT_TESTS_SOURCES
-    unitTests.cpp
-)
-
 # Set the variable source_files to the list of names of your C++ source code
 # Note the lack of commas or other deliminators
 SET(SOURCE_FILES
-    ${SOURCES_TO_BE_TESTED}
-    ${UNIT_TESTS_SOURCES}
+   fibmemo.cpp
 )
 
 # Build a program called '${THE_PROJECT}' from the source files we specified above
 ADD_EXECUTABLE(${THE_PROJECT} ${SOURCE_FILES})
 
-TARGET_LINK_LIBRARIES(${THE_PROJECT} ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} ${GMOCK_LIBRARIES} ${GMOCK_MAIN_LIBRARIES} )
+FIND_PACKAGE(Boost REQUIRED COMPONENTS program_options filesystem system)
+IF(Boost_FOUND)
+    INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
+#    TARGET_LINK_LIBRARIES(${OBJ_EXECUTABLE} LINK_PUBLIC bigint ${Boost_LIBRARIES})
+ENDIF()
+
+SET(LINKED_LIBS bigint)
+TARGET_LINK_LIBRARIES(${THE_PROJECT} LINK_PUBLIC ${LINKED_LIBS} ${Boost_LIBRARIES})
+
